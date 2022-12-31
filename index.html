@@ -5,14 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
-    <script src="game.js"></script>
+    <script src="./scripts/app.js" defer></script>
+    <link rel="stylesheet" href="./styles/colors.css">
+    <link rel="stylesheet" href="./styles/styles.css">
   </head>
   <body>
-    <script>
-      const playerSelection = "rock";
-      const computerSelection = getComputerChoice();
-      console.log(playRound(playerSelection, computerSelection));
-      game();
-    </script>
+    <header id="header" class="background-color-darkteal"> 
+      <h1 id="header-title" class="color-beige tight-layout">rock, paper, scissors</h1>
+      <p id="header-subtitle" class="color-beige tight-layout">a game of luck!</p>
+    </header>
+    <section id="game" class="background-color-beige">
+      <div id="game-text">
+        <h2 id="game-title" class="tight-layout">select your move</h2>
+        <p id="game-subtitle" class="tight-layout">best of five wins...</p>
+      </div>
+      <div id="player-selections">
+        <button id="rock" class="player-selection background-color-beige">✊</button>
+        <button id="paper" class="player-selection background-color-beige">✋</button>
+        <button id="scissors" class="player-selection background-color-beige">✌️</button>
+      </div>
+      <div id="game-scores">
+        <div class="player-score-container">
+          <h3>Player Score</h3>
+          <p class="player-score">0</p>
+        </div>
+        <div class="computer-score-container">
+          <h3>Computer Score</h3>
+          <p class="computer-score">0</p>
+        </div>
+      </div>
+    </section>
+    <footer id="footer" class="background-color-darkteal">
+      <p id="footer-text" class="color-beige tight-layout">made by notpawelll</p>
+    </footer>
   </body>
 </html>
