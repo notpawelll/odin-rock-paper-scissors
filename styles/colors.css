@@ -6,6 +6,10 @@
 	color: #faf5e4; 
 }
 
+.color-lightbeige { 
+	color: hsl(46, 69%, 97%);
+}
+
 .color-mediumteal { 
 	color: #2c786c; 
 }
@@ -20,6 +24,10 @@
 	
 .background-color-beige { 
 	background-color: #faf5e4; 
+}
+
+.background-color-lightbeige { 
+	background-color: hsl(46, 69%, 97%);
 }
 
 .background-color-mediumteal { 

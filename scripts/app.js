@@ -1,13 +1,18 @@
-let computerWins = 0;
-let playerWins = 0;
+// default values
+const GAME_TITLE = "select your move";
+const GAME_SUBTITLE = "best of five wins...";
+const DEFAULT_SCORE = 0;
 
-const playerScore = document.querySelector("p.player-score");
-const computerScore = document.querySelector("p.computer-score");
-
+// DOM elements
+const buttons = document.querySelectorAll("button");
+const playerScore = document.querySelector("h3#player-score");
+const computerScore = document.querySelector("h3#computer-score");
 const gameTitle = document.querySelector("h2#game-title");
 const gameSubtitle = document.querySelector("p#game-subtitle");
 
-const buttons = document.querySelectorAll("button");
+// game starting values
+let computerWins = DEFAULT_SCORE;
+let playerWins = DEFAULT_SCORE;
 
 function toEmoji(selection) {
   let selectionEmoji;
@@ -21,7 +26,6 @@ function toEmoji(selection) {
     case "scissors":
       selectionEmoji = "✌️";
   }
-
   return selectionEmoji
 }
 
@@ -37,7 +41,6 @@ function getComputerChoice() {
     case 2:
       randomChoice = "scissors";
   }
-
   return randomChoice;
 }
 
@@ -45,86 +48,31 @@ function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
 
-  if (playerSelection === "rock") {
-    if (computerSelection === "rock") {
-      return 0;
-    }
-    else if (computerSelection === "paper") {
-      return -1;
-    }
-    else {
-      return 1;
-    }
+  if (playerSelection === computerSelection) {
+    return 0;
   }
-  else if (playerSelection === "paper") {
-    if (computerSelection === "rock") {
-      return 1;
-    }
-    else if (computerSelection === "paper") {
-      return 0;
-    }
-    else {
-      return -1;
-    }
+  else if ((playerSelection === "rock" && computerSelection === "paper") ||
+      (playerSelection === "paper" && computerSelection === "scissors") ||
+      (playerSelection === "scissors") && (computerSelection === "rock"))
+  {
+    return -1;
   }
-  else { // playerSelection == "scissors"
-    if (computerSelection === "rock") {
-      return -1;
-    }
-    else if (computerSelection === "paper") {
-      return 1;
-    }
-    else {
-      return 0;
-    }
-  }
-}
-
-function game() {
-  let playerWins = 0;
-  let computerWins = 0;
-  playerScore.textContent = playerWins;
-  computerScore.textContent = computerWins;
-
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = "";
-    while (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
-      playerSelection = prompt(`Round ${i + 1}. Please make your choice (rock, paper, or scissors):`);
-      playerSelection = playerSelection.toLowerCase();
-    }
-
-    let computerSelection = getComputerChoice();
-    switch (playRound(playerSelection, computerSelection)) {
-      case -1:
-        console.log(`You lost this round! The computer chose ${computerSelection}.`);
-        computerWins++;
-        break;
-      case 1:
-        console.log(`You won this round! The computer chose ${computerSelection}.`);
-        playerWins++;
-        break;
-      case 0:
-        console.log(`The computer chose ${computerSelection}. This round results in a draw.`);
-    }
+  else if ((playerSelection === "rock" && computerSelection === "scissors") ||
+      (playerSelection === "paper" && computerSelection === "rock") ||
+      (playerSelection === "scissors") && (computerSelection === "paper"))
+  {
+    return 1;
   }
 
-  console.log(`playerWins: ${playerWins}; computerWins: ${computerWins}`);
-  if (playerWins > computerWins) {
-    console.log("You won!");
-  }
-  else if (playerWins < computerWins) {
-    console.log("You lose!");
-  }
-  else {
-    console.log("Draw!");
-  }
+  return undefined;
 }
 
 function handlePlayerInput(playerSelection) {
   let titleText;
   let subtitleText;
   const computerSelection = getComputerChoice();
-  switch(playRound(playerSelection, computerSelection)) {
+  const roundResult = playRound(playerSelection, computerSelection);
+  switch(roundResult) {
     case -1:
       computerWins++;
       titleText = "you lost!"
@@ -137,7 +85,10 @@ function handlePlayerInput(playerSelection) {
     case 1:
       playerWins++;
       titleText = "you won!";
-      subtitleText = `${toEmoji(playerSelection)} > ${toEmoji(computerSelection)}`;    
+      subtitleText = `${toEmoji(playerSelection)} > ${toEmoji(computerSelection)}`;
+      break;
+    default:
+      console.log(`somehow got a wacko output: ${roundResult}`)   
   }
 
   playerScore.textContent = parseInt(playerWins);
@@ -146,18 +97,26 @@ function handlePlayerInput(playerSelection) {
   gameSubtitle.textContent = subtitleText;
 
   if (playerWins >= 5) {
-    alert("You won!");
-    resetGame();
+    setTimeout(function() {
+      alert("you won! press ok to play again.");
+      resetGame();
+    }, 0);
   }
   else if (computerWins >= 5) {
-    alert("You lost!");
-    resetGame();
+    setTimeout(function() {
+      alert("you lost! press ok to play again.");
+      resetGame();
+    }, 0);
   }
 }
 
 function resetGame() {
-  playerWins = 0;
-  computerWins = 0;
+  playerWins = DEFAULT_SCORE;
+  computerWins = DEFAULT_SCORE;
+  playerScore.textContent = parseInt(playerWins);
+  computerScore.textContent = parseInt(computerWins);
+  gameTitle.textContent = GAME_TITLE;
+  gameSubtitle.textContent = GAME_SUBTITLE;
 }
 
 buttons.forEach((button) => {

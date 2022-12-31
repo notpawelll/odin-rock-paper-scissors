@@ -38,7 +38,7 @@ body {
 
 #game {
   width: 60%;
-  padding: 24px 20% 12px 20%;
+  padding: 24px 20% 24px 20%;
   flex: 1;
 }
 
@@ -70,23 +70,27 @@ body {
   font-size: 72px;
   height: 100px;
   width: 100px;
-  border: 0;
-  border-radius: 50%;
   transition: all .07s ease;
 }
 
 .player-selection:hover {
-  transform: scale(1.05);
-  background-color: #f8b400;
-  box-shadow: 0 0 1rem #f8b400;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-#game-scores {
+#game-score-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 48px;
+  gap: 6px 48px;
+}
+
+.score-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
 }
 
 #footer {
@@ -101,4 +105,20 @@ body {
 
 #footer-text {
   text-align: center;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
 }
